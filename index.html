@@ -18,6 +18,29 @@ button,select{background:#fff;border:1px solid #ccd7e7;color:#203452;padding:11p
 .badge{color:#2453b5;border-color:#cad9f8;background:#edf3ff}.insight{background:#fbfcff;border:1px solid #e0e7f2;border-radius:12px}.insight strong{font-size:16px}.hint{color:#946521}footer{border-color:#dfe5ee}#chart{height:420px}
 @media(max-width:920px){header{flex-wrap:wrap;padding:15px 22px;gap:12px}nav{order:3;width:100%;justify-content:flex-start;overflow-x:auto}.release{margin-left:auto}nav a{white-space:nowrap}}
 @media(max-width:550px){header{flex-direction:row;align-items:center;gap:8px}.brand{font-size:20px}.release{font-size:10px;padding:7px 8px;max-width:200px}.hero{padding:43px 24px;margin-left:-24px;margin-right:-24px;border-radius:0 0 20px 20px}.hero p{font-size:15px}.card{padding:18px}.section{padding:25px 0}.grid{grid-template-columns:1fr}.metric{font-size:32px}#chart{height:330px}}
+
+/* Mobile header hardening: never allow off-screen navigation or status */
+header{box-sizing:border-box;min-width:0}
+header>*{min-width:0}
+.release{flex:0 1 auto;min-width:0}
+#release-label{overflow-wrap:anywhere}
+@media(max-width:920px){
+ header{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"brand status" "nav nav";align-items:center;gap:12px;padding:14px 20px}
+ header .brand{grid-area:brand}
+ header .release{grid-area:status;margin:0;max-width:240px}
+ header nav{grid-area:nav;order:unset;display:flex;flex-wrap:nowrap;width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;justify-content:flex-start;padding:3px 0}
+ header nav::-webkit-scrollbar{display:none}
+ header nav a{flex:none;padding:9px 12px}
+}
+@media(max-width:550px){
+ header{display:flex;flex-direction:column;align-items:stretch;gap:12px;padding:14px 16px}
+ header .brand{align-self:flex-start}
+ header .release{align-self:stretch;width:100%;max-width:none;justify-content:flex-start;line-height:1.4;font-size:11px;padding:9px 10px}
+ #release-label{overflow-wrap:normal;word-break:normal}
+ header nav{order:unset;align-self:stretch;width:100%;max-width:100%;gap:4px;overflow-x:auto;white-space:nowrap}
+ header nav a{padding:9px 11px;font-size:13px}
+ .hero{margin-left:-24px;margin-right:-24px}
+}
 </style></head><body>
 <header><a href="./" class="brand">DEEP<span>SIGNAL</span></a><nav><a href="#explore">Explore</a><a href="#discover">Discover</a><a href="#compare">Compare</a><a href="#library">Data Library</a></nav><div class="release" id="release" title="Website release and data refresh times"><span class="status-dot"></span><span id="release-label">Checking release…</span></div></header>
 <main>
